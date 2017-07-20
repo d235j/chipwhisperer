@@ -85,7 +85,7 @@ class UserScript(UserScriptBase):
                       ['Simple Serial', 'Output Format', ''],
                       # Auto-reset
                       ['Generic Settings', 'Auxiliary Module', 'Reset AVR/XMEGA via CW-Lite'],
-                      ['Reset AVR/XMEGA via CW-Lite', 'Delay (Post-Arm)', 1200],
+                      ['Aux Settings', 'Reset AVR/XMEGA via CW-Lite', 'Delay (Post-Arm)', 1200],
                       ]
         
         # Download all hardware setup parameters
@@ -94,7 +94,7 @@ class UserScript(UserScriptBase):
                        
         # Get one capture for fun
         self.api.capture1()
-        data = self.api.getScope().datapoints
+        data = self.api.getScope().qtadc.datapoints
         print data
         
         # Crack the first letter
@@ -109,7 +109,7 @@ class UserScript(UserScriptBase):
                 self.api.capture1()
                 
                 # Grab the trace
-                nextTrace = self.api.getScope().datapoints
+                nextTrace = self.api.getScope().qtadc.datapoints
                 
                 # Check location 153, 225, etc. If it's too low, we've failed
                 if nextTrace[153 + 72*i] < -0.2:
